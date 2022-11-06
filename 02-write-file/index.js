@@ -25,3 +25,4 @@ stdin.on('data', x => {
 )})
 
 process.on('exit', () => stdout.write('Ввод окончен. Всего доброго.'));
+process.on('SIGINT', () => process.exit());
