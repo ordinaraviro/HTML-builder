@@ -9,20 +9,22 @@ fs.mkdir(path.join(__dirname, "project-dist"), { recursive: true}, err => {
 });
 
 // create assets
-fs.mkdir(path.join(__dirname, "project-dist", "assets"), { recursive: true}, err => {
-    if (err)throw err;
-});
-fs.mkdir(path.join(__dirname, "project-dist", "assets", "fonts"), { recursive: true}, err => {
-    if (err)throw err;
-});
-fs.mkdir(path.join(__dirname, "project-dist", "assets", "img"), { recursive: true}, err => {
-    if (err)throw err;
-});
-fs.mkdir(path.join(__dirname, "project-dist", "assets", "svg"), { recursive: true}, err => {
-    if (err){throw err} else {copyAssets()};
-});
+
 
 async function copyAssets() {
+    await fsProms.mkdir(path.join(__dirname, "project-dist", "assets"), { recursive: true}, err => {
+        if (err)throw err;
+    });
+    await fsProms.mkdir(path.join(__dirname, "project-dist", "assets", "fonts"), { recursive: true}, err => {
+        if (err)throw err;
+    });
+    await fsProms.mkdir(path.join(__dirname, "project-dist", "assets", "img"), { recursive: true}, err => {
+        if (err)throw err;
+    });
+    await fsProms.mkdir(path.join(__dirname, "project-dist", "assets", "svg"), { recursive: true}, err => {
+        if (err){throw err};
+    });
+
     const fontsFiles = await fsProms.readdir(path.join(__dirname, "assets", "fonts"));
     for await (let file of fontsFiles) {
         const oldPath = path.join(__dirname, "assets", "fonts", file);
@@ -51,6 +53,8 @@ async function copyAssets() {
         });
     };
 };
+
+copyAssets();
 
 // components copy
 async function copyComponents() {
