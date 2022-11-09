@@ -19,7 +19,7 @@ fs.mkdir(path.join(__dirname, "project-dist", "assets", "img"), { recursive: tru
     if (err)throw err;
 });
 fs.mkdir(path.join(__dirname, "project-dist", "assets", "svg"), { recursive: true}, err => {
-    if (err)throw err;
+    if (err){throw err} else {copyAssets()};
 });
 
 async function copyAssets() {
@@ -51,7 +51,6 @@ async function copyAssets() {
         });
     };
 };
-copyAssets();
 
 // components copy
 async function copyComponents() {
